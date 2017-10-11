@@ -1,6 +1,6 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
-output: html_document
+output: md_document
 keep_md: true
 ---
 ```{r setup, include=FALSE}
@@ -8,7 +8,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 ```
 ## Check package installation
 ```{r warning=FALSE}
-libs <- c("plotly", "data.table", "knitr", "dplyr", "stringr")
+libs <- c("plotly", "data.table", "knitr", "dplyr", "stringr", "webshot")
 for (i in libs){
   if( !is.element(i, .packages(all.available = TRUE)) ) {
     install.packages(i)
@@ -53,7 +53,7 @@ MeanSteps <- round(mean(StepsPerDay$Total_Steps), 2)
 MedianSteps <- median(StepsPerDay$Total_Steps)
 ```
 Mean total number of steps taken per day: `r MeanSteps`  
-Median total number of steps taken per day: `r MedianSteps`
+Median total number of steps taken per day: `r MedianSteps`  
 
 ## What is the average daily activity pattern?
 ```{r warning=FALSE}
@@ -119,9 +119,8 @@ MedianStepsImputed <- median(StepsPerDayImputed$Total_Steps)
 Mean total number of steps taken per day: `r MeanStepsImputed`  
 Median total number of steps taken per day: `r MedianStepsImputed`  
 
-
 ## Are there differences in activity patterns between weekdays and weekends?
-```{r}
+```{r warning=FALSE}
 # Convert the date to weekday or weekend
 data$dateType <- ifelse(as.POSIXlt(data$date)$wday %in% c(0,6), 'Weekend', 'Weekday')
 
@@ -135,4 +134,3 @@ plot_ly(data = MeanStepsPerIntervalImputed,
               mode = "line"
              )
 ```
-
